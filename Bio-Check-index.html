@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>TaccCheck App</title>
+
+<style>
+body {
+  background: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: Arial;
+}
+
+/* iPhone */
+.phone {
+  width: 340px;
+  height: 700px;
+  background: black;
+  border-radius: 40px;
+  padding: 15px;
+  box-shadow: 0 0 40px black;
+}
+
+.screen {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#187894, #0F4C5C);
+  border-radius: 30px;
+  padding: 20px;
+  box-sizing: border-box;
+  color: white;
+  text-align: center;
+}
+
+h1 {
+  margin-top: 10px;
+  font-size: 24px;
+}
+
+.card {
+  background: white;
+  color: black;
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+button {
+  background: #187894;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 10px;
+  width: 100%;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0F4C5C;
+}
+
+.result {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.ok { color: green; }
+.alert { color: red; }
+
+label {
+  display: block;
+  text-align: left;
+}
+</style>
+</head>
+
+<body>
+
+<div class="phone">
+<div class="screen">
+
+<h1>Tacc-Check+</h1>
+<p>Come, probá y disfrutá</p>
+
+<div class="card">
+  <h3>🔍 Escanear alimento</h3>
+  <button onclick="scan()">Analizar</button>
+  <div id="resultado" class="result"></div>
+</div>
+
+<div class="card">
+  <h3>⚙️ Personalización</h3>
+
+  <label><input type="checkbox" id="gluten" checked> Sin gluten</label>
+  <label><input type="checkbox" id="sodio"> Sodio</label>
+  <label><input type="checkbox" id="potasio"> Potasio</label>
+</div>
+
+<div class="card">
+  <h3>📊 Resultados</h3>
+  <div id="detalle">Esperando análisis...</div>
+</div>
+
+</div>
+</div>
+
+<script>
+function scan() {
+
+  let res = document.getElementById("resultado");
+  let det = document.getElementById("detalle");
+
+  let gluten = document.getElementById("gluten").checked;
+  let sodio = document.getElementById("sodio").checked;
+  let potasio = document.getElementById("potasio").checked;
+
+  let contaminado = Math.random() > 0.5;
+
+  if (contaminado && gluten) {
+    res.innerHTML = "⚠️ Contaminación detectada";
+    res.className = "result alert";
+  } else {
+    res.innerHTML = "✅ Apto para consumo";
+    res.className = "result ok";
+  }
+
+  let texto = "";
+
+  if (sodio) {
+    texto += "Sodio: " + (Math.floor(Math.random()*200)) + " mg<br>";
+  }
+
+  if (potasio) {
+    texto += "Potasio: " + (Math.floor(Math.random()*500)) + " mg<br>";
+  }
+
+  if (!sodio && !potasio) {
+    texto = "Sin mediciones adicionales";
+  }
+
+  det.innerHTML = texto;
+}
+</script>
+
+</body>
+</html>
